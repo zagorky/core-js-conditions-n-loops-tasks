@@ -254,16 +254,15 @@ function getIndexOf(str, letter) {
  *  12345, 6    => false
  */
 function isContainNumber(num, digit) {
-  let res = false;
   let temp = num;
   while (temp > 0) {
     const current = temp % 10;
     if (current === digit) {
-      res = true;
+      return true;
     }
     temp = Math.floor(temp / 10);
   }
-  return res;
+  return false;
 }
 // console.log(isContainNumber(123450, 5));
 
