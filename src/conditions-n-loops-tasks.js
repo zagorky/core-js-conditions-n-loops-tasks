@@ -200,17 +200,16 @@ function convertNumberToString(numberStr) {
 function isPalindrome(str) {
   let reverse = '';
   let i = str.length - 1;
-  let result = true;
   while (i >= 0) {
     reverse += str[i];
     i -= 1;
   }
   for (let j = 0; j < str.length; j += 1) {
     if (reverse[j] !== str[j]) {
-      result = false;
+      return false;
     }
   }
-  return result;
+  return true;
 }
 
 /**
