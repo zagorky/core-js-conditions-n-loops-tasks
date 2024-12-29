@@ -74,8 +74,6 @@ function canQueenCaptureKing(queen, king) {
   );
 }
 
-// console.log(canQueenCaptureKing({ x: 1, y: 1 }, { x: 5, y: 5 }));
-
 /**
  * Determines whether a triangle is isosceles based on its side lengths.
  * In this task, the use of methods of the String and Array classes is not allowed.
@@ -132,8 +130,6 @@ function convertToRomanNumerals(num) {
   return `${romanDec[Math.floor(num / 10) - 1]}${romanNums[(num % 10) - 1]}`;
 }
 
-// console.log(convertToRomanNumerals(13));
-
 /**
  * Converts a number to a string, replacing digits with words.
  * In this task, the use of methods of the String and Array classes is not allowed.
@@ -182,8 +178,6 @@ function convertNumberToString(numberStr) {
 
   return result;
 }
-
-// console.log(convertNumberToString('1'));
 
 /**
  * Determines whether a string is a palindrome.
@@ -235,8 +229,6 @@ function getIndexOf(str, letter) {
   return -1;
 }
 
-// console.log(getIndexOf('qwerty', 'p'));
-
 /**
  * Checks if a number contains a specific digit.
  * In this task, the use of methods of the String and Array classes is not allowed.
@@ -263,7 +255,6 @@ function isContainNumber(num, digit) {
   }
   return false;
 }
-// console.log(isContainNumber(123450, 5));
 
 /**
  * Finds the index of an element in an array where the sum of elements to the left equals the sum of elements to the right.
@@ -462,9 +453,64 @@ function sortByAsc(arr, left = 0, right = arr.length - 1) {
  *  '012345', 3 => '024135' => '043215' => '031425'
  *  'qwerty', 3 => 'qetwry' => 'qtrewy' => 'qrwtey'
  */
-function shuffleChar(/* str, iterations */) {
-  throw new Error('Not implemented');
+function shuffleChar(str, iterations) {
+  const strLength = str.length;
+  const finalPos = new Array(strLength);
+  const resultArr = new Array(strLength);
+
+  if (iterations === 0 || str.length <= 1) {
+    return str;
+  }
+
+  for (let i = 0; i < strLength; i += 1) {
+    let cur = i;
+    for (let k = 0; k < iterations; k += 1) {
+      if (cur % 2 === 0) {
+        cur /= 2;
+      } else {
+        cur = Math.floor(strLength / 2) + Math.floor(cur / 2);
+      }
+    }
+    finalPos[i] = cur;
+  }
+
+  for (let i = 0; i < strLength; i += 1) {
+    resultArr[finalPos[i]] = str[i];
+  }
+
+  let finalStr = '';
+  for (let i = 0; i < strLength; i += 1) {
+    finalStr += resultArr[i];
+  }
+
+  return finalStr;
 }
+
+// function shuffleChar(str, iterations) {
+//   const strLength = str.length;
+
+//   if (iterations === 0 || strLength <= 1) {
+//     return str;
+//   }
+
+//   let result = str;
+
+//   for (let k = 0; k < iterations; k += 1) {
+//     let newStr = '';
+
+//     for (let i = 0; i < strLength; i += 2) {
+//       newStr += result[i];
+//     }
+
+//     for (let i = 1; i < strLength; i += 2) {
+//       newStr += result[i];
+//     }
+
+//     result = newStr;
+//   }
+
+//   return result;
+// }
 
 /**
  * Returns the nearest largest integer consisting of the digits of the given positive integer.
@@ -483,21 +529,6 @@ function shuffleChar(/* str, iterations */) {
  * @param {number} number The source number
  * @returns {number} The nearest larger number, or original number if none exists.
  */
-// function getNearestBigger(/* number */) {
-// throw new Error('Not implemented');
-// }
-// class Artem {
-//   name = 'Artem';
-
-//   age = 19;
-
-//   greet() {
-//     return `Hi! I'm ${this.name}. I'm ${this.age}th years old`;
-//   }
-// }
-
-// const exp = new Artem();
-// console.log(exp.greet());
 
 function getNearestBigger(number) {
   const digits = [];
