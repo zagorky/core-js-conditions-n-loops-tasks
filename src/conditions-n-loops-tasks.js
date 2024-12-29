@@ -285,17 +285,19 @@ function getBalanceIndex(arr) {
   for (let i = 0; i < arr.length; i += 1) {
     acc += arr[i];
   }
+
   for (let i = 0; i < arr.length; i += 1) {
     const rightSum = acc - leftSum - arr[i];
+
     if (leftSum === rightSum) {
       return i;
     }
+
     leftSum += arr[i];
   }
+
   return -1;
 }
-
-// console.log(getBalanceIndex([1, 2, 3, 4, 5]));
 
 /**
  * Generates a spiral matrix of a given size, filled with numbers in ascending order starting from one.
@@ -481,17 +483,74 @@ function shuffleChar(/* str, iterations */) {
  * @param {number} number The source number
  * @returns {number} The nearest larger number, or original number if none exists.
  */
-function getNearestBigger(/* number */) {
-  // const digits = [];
-  // let temp = number;
+// function getNearestBigger(/* number */) {
+// throw new Error('Not implemented');
+// }
+// class Artem {
+//   name = 'Artem';
 
-  // while (temp > 0) {
-  //   digits.push(temp % 10);
-  //   temp = Math.floor(temp / 10);
-  // }
+//   age = 19;
 
-  // return number;
-  throw new Error('Not implemented');
+//   greet() {
+//     return `Hi! I'm ${this.name}. I'm ${this.age}th years old`;
+//   }
+// }
+
+// const exp = new Artem();
+// console.log(exp.greet());
+
+function getNearestBigger(number) {
+  const digits = [];
+  let temp = number;
+
+  while (temp > 0) {
+    digits.push(temp % 10);
+    temp = Math.floor(temp / 10);
+  }
+  digits.reverse();
+
+  let swapIndex = -1;
+
+  for (let i = digits.length - 2; i >= 0; i -= 1) {
+    if (digits[i] < digits[i + 1]) {
+      swapIndex = i;
+      break;
+    }
+  }
+  if (swapIndex === -1) {
+    return number;
+  }
+
+  let minBiggerIndex = swapIndex + 1;
+
+  for (let i = swapIndex + 1; i < digits.length; i += 1) {
+    if (digits[i] > digits[swapIndex] && digits[i] <= digits[minBiggerIndex]) {
+      minBiggerIndex = i;
+    }
+  }
+
+  [digits[swapIndex], digits[minBiggerIndex]] = [
+    digits[minBiggerIndex],
+    digits[swapIndex],
+  ];
+
+  const left = [];
+  for (let i = 0; i <= swapIndex; i += 1) {
+    left.push(digits[i]);
+  }
+
+  const right = [];
+  for (let i = swapIndex + 1; i < digits.length; i += 1) {
+    right.push(digits[i]);
+  }
+  right.sort((a, b) => a - b);
+
+  const result = [...left, ...right];
+  let resultNum = 0;
+  for (let i = 0; i < result.length; i += 1) {
+    resultNum = resultNum * 10 + result[i];
+  }
+  return resultNum;
 }
 
 module.exports = {
